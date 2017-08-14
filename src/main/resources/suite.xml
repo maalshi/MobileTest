@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name = "AerlTest" verbose ="1" parallel="false">
+    <parameter name="airport"  value="lhr"/>
+    <test name="FlightTest">
+        <classes>
+            <class name="FlightTest">
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,19 +1,18 @@
-package businessobject.dates;
+package pageobject;
 
-import businessobject.WaitForElement;
+import businessobject.dates.BookingDate;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 
-public class SwipeSelectDatePage {
+public class SwipeSelectDatePage extends AbstractPage  {
 
     private AndroidDriver driver;
     private String day;
     private String month;
     private String year;
     private String dayXPath;
-    WaitForElement waitForElement = new WaitForElement();
 
     public String createDayXpath(BookingDate bookingDate) {
         day = bookingDate.getDay();
@@ -39,7 +38,7 @@ public class SwipeSelectDatePage {
                 String dayXPath = createDayXpath(bookingDate);
                 AndroidElement selectedDay;
                 selectedDay = (AndroidElement) driver.findElement(By.xpath(dayXPath));
-                waitForElement.toBeClickable(selectedDay);
+                waitElement(selectedDay);
                 System.out.println(i);
                 System.out.println("day is found" + selectedDay.getLocation().y + " " + size.height * 1.1 + " "
                         + size.height * 0.1);
@@ -77,7 +76,6 @@ public class SwipeSelectDatePage {
             }
         }
         System.out.println("Button 'Flight From' has been found");
-
     }
 }
 

@@ -1,10 +1,9 @@
 package pageobject;
 
-import businessobject.WaitForElement;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
-public class BookAFlightPage {
+public class BookAFlightPage extends AbstractPage {
 
     @AndroidFindBy(xpath = "//android.widget.RadioButton[@text = 'ONE WAY']")
     private MobileElement tabOneWay;
@@ -33,132 +32,66 @@ public class BookAFlightPage {
     @AndroidFindBy(xpath = "//android.widget.Button[@text = 'Search Flights']")
     private MobileElement buttonSearchFlights;
 
-    private int fingers = 1;
-    private int duration = 100;
-
-    WaitForElement waitForElement = new WaitForElement();
-
     public void clickTabOneWay() {
-
-        waitForElement.toBeClickable(tabOneWay);
-
+        waitElement(tabOneWay);
         System.out.println("Click on the button 'Flight From'");
-
-        try {
-            tabOneWay.tap(fingers, 100);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        tapElement(tabOneWay);
         System.out.println("Button 'Flight From' has been clicked");
 
     }
 
     public void clickTabReturn() {
-
-        waitForElement.toBeClickable(tabReturn);
-
+        waitElement(tabReturn);
         System.out.println("Click on the button 'Flight From'");
-
-        try {
-            tabReturn.tap(fingers, duration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        tapElement(tabReturn);
         System.out.println("Button 'Flight From' has been clicked");
-
     }
 
     public void clickButtonBookAFlightFrom() {
-
-        waitForElement.toBeClickable(buttonFlightFrom);
-
+        waitElement(buttonFlightFrom);
         System.out.println("Click on the button 'Flight From'");
-
-        try {
-            buttonFlightFrom.tap(fingers, duration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        tapElement(buttonFlightFrom);
         System.out.println("Button 'Flight From' has been clicked");
-
     }
 
     public void clickButtonBookAFlightTo() {
-
-        waitForElement.toBeClickable(buttonFlightTo);
-
-        System.out.println("Click on the button 'Flight From'");
-
-        try {
-            buttonFlightTo.tap(fingers, duration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Button 'Flight From' has been clicked");
-
+        waitElement(buttonFlightTo);
+        System.out.println("Click on the button 'Flight To'");
+        tapElement(buttonFlightTo);
+        System.out.println("Button 'Flight To' has been clicked");
     }
 
     public void clickButtonSelectDepartingDate() {
-
-        waitForElement.toBeClickable(buttonSelectDepartingDate);
-
+        waitElement(buttonSelectDepartingDate);
         System.out.println("Click on the button 'Flight From'");
-
-        try {
-            buttonSelectDepartingDate.tap(fingers, duration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        tapElement(buttonSelectDepartingDate);
         System.out.println("Button 'Flight From' has been clicked");
 
     }
 
     public void clickArrowToIncreaseNumberOfAdults(int number) {
-
-        waitForElement.toBeClickable(arrowIncreaseNumberOfAdults);
-
-        System.out.println("Click on the button 'Flight From'");
-
+        waitElement(arrowIncreaseNumberOfAdults);
+        System.out.println("Increase number of pax to 3");
         try {
-
             if (Integer.parseInt(numberOfAdults.getText()) <= number) {
                 for (int i = 1; i <= (number - 1); i++) {
-                    arrowIncreaseNumberOfAdults.tap(fingers, duration);
+                    tapElement(arrowIncreaseNumberOfAdults);
                 }
-
             } else if (Integer.parseInt(numberOfAdults.getText()) == number) {
                 System.out.println("number Of Adults is already " + number);
             } else if (Integer.parseInt(numberOfAdults.getText()) > number) {
                 System.out.println("number Of Adults is already more than " + number);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println("Button 'Flight From' has been clicked");
-
+        System.out.println("Number of pax is increased to 3");
     }
 
     public void clickButtonSearchFlights() {
-
-        waitForElement.toBeClickable(buttonSearchFlights);
-
-        System.out.println("Click on the button 'Flight From'");
-
-        try {
-            buttonSearchFlights.tap(fingers, duration);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Button 'Flight From' has been clicked");
-
+       waitElement(buttonSearchFlights);
+        System.out.println("Click on the button 'Search Flights'");
+        tapElement(buttonSearchFlights);
+        System.out.println("Button 'Search Flights' has been clicked");
     }
-
 }

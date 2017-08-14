@@ -1,8 +1,8 @@
-import businessobject.Constants;
 import businessobject.dates.BookingDate;
 import businessobject.dates.DefaultDate;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageobject.BookAFlightPage;
 import pageobject.DestinationPage;
@@ -21,8 +21,10 @@ public class FlightTest {
         }
     }
 
+    DestinationPage destination = new DestinationPage();
+    @Parameters({ "airport" })
     @Test
-    public void newTestDemo() {
+    public void newTestDemo(String airport) {
         MainPage mainpage = new MainPage();
         mainpage.clickButtonBookAFlight();
 
@@ -37,9 +39,7 @@ public class FlightTest {
         date.clickButtonDone();
         booking.clickArrowToIncreaseNumberOfAdults(3);
         booking.clickButtonBookAFlightTo();
-
-        DestinationPage destination = new DestinationPage();
-        destination.searchForAirports(Constants.DESTINATION());
+        destination.searchForAirports(airport);
         destination.selectAirportAfterSearch();
         booking.clickButtonSearchFlights();
     }

@@ -1,8 +1,6 @@
 package pageobject;
 
-import businessobject.WaitForElement;
 import businessobject.dates.BookingDate;
-import businessobject.dates.SwipeSelectDatePage;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -12,7 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import webdriver.DriverManager;
 
-public class SelectDatePage {
+public class SelectDatePage extends AbstractPage  {
 
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Done']")
     private MobileElement buttonDone;
@@ -25,18 +23,15 @@ public class SelectDatePage {
         PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
     }
 
-    WaitForElement waitForElement = new WaitForElement();
-
     public void clickOnTheDay(BookingDate bookingDate) {
-
         SwipeSelectDatePage swipe = new SwipeSelectDatePage();
         swipe.swipeDownToFindDay(driver, bookingDate);
         dayXPath = swipe.createDayXpath(bookingDate);
-        AndroidElement day;
 
+        AndroidElement day;
         try {
             day = (AndroidElement) driver.findElement(By.xpath(dayXPath));
-            waitForElement.toBeClickable(day);
+            waitElement(day);
             day.tap(1, 100);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,18 +40,13 @@ public class SelectDatePage {
 
     public void clickButtonDone() {
 
-        waitForElement.toBeClickable(buttonDone);
-
+       waitElement(buttonDone);
         System.out.println("Click on the button 'Done'");
-
         try {
             buttonDone.click();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         System.out.println("Button 'Done' has been clicked");
-
     }
-
 }

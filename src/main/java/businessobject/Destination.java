@@ -8,7 +8,7 @@ public class Destination {
         this.destination = destination;
     }
 
-    public String getDestination(){
+    public static String getDestination(){
         return destination;
     }
 
