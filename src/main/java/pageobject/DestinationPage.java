@@ -28,6 +28,10 @@ public class DestinationPage extends AbstractPage {
     @AndroidFindBy(xpath = "//android.widget.TextView[@text = 'Dublin to London/Heathrow']")
     private MobileElement OrigAndDestin;
 
+    public DestinationPage() {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), this);
+    }
+
     public void searchForAirports(String airport) {
 
         waitElement(searchForAirports);

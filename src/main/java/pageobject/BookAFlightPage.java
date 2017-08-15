@@ -8,9 +8,7 @@ import webdriver.DriverManager;
 
 public class BookAFlightPage extends AbstractPage {
 
-    public void initialisePageObject(Object page) {
-        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), page);
-    }
+
 
     @AndroidFindBy(xpath = "//android.widget.RadioButton[@text = 'ONE WAY']")
     private MobileElement tabOneWay;
@@ -38,6 +36,10 @@ public class BookAFlightPage extends AbstractPage {
 
     @AndroidFindBy(xpath = "//android.widget.Button[@text = 'Search Flights']")
     private MobileElement buttonSearchFlights;
+
+    public BookAFlightPage() {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), this);
+    }
 
     public void clickTabOneWay() {
         waitElement(tabOneWay);

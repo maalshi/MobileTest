@@ -28,8 +28,8 @@ public class MainPage extends AbstractPage  {
     @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/up']")
     private MobileElement buttonMenu;
 
-    public void initialisePageObject(Object page) {
-        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), page);
+    public MainPage() {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), this);
     }
 
     public void clickButtonBookAFlight() {

@@ -5,6 +5,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import webdriver.DriverManager;
 
 public class AbstractPage {
@@ -31,4 +32,6 @@ public class AbstractPage {
             e.printStackTrace();
         }
     }
+
+
 }

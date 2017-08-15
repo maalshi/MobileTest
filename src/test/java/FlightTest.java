@@ -4,15 +4,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageobject.BookAFlightPage;
-import pageobject.DestinationPage;
-import pageobject.MainPage;
-import pageobject.SelectDatePage;
+import pageobject.*;
 import webdriver.DriverManager;
 
 public class FlightTest {
     DestinationPage destination = new DestinationPage();
-    BookAFlightPage booking = new BookAFlightPage();
+    BookAFlightPage book = new BookAFlightPage();
 
     @BeforeClass
     public void beforeTest() {
@@ -26,19 +23,31 @@ public class FlightTest {
 
     @Test
     public void newTestDemo() {
-        MainPage mainpage = new MainPage();
-        mainpage.clickButtonBookAFlight();
-
-        BookAFlightPage book = new BookAFlightPage();
-        book.clickTabOneWay();
+        MainPage mainPage = new MainPage();
+        mainPage.clickButtonBookAFlight();
+        BookAFlightPage booking = new BookAFlightPage();
+        booking.clickButtonSelectDepartingDate();
+        BookingDate bookingFromDate = DefaultDate.CreateDefaultDate().withDay("25").withMonth("August");
+        System.out.println(bookingFromDate.toString());
+        SelectDatePage date = new SelectDatePage();
+        date.clickOnTheDay(bookingFromDate);
+        BookingDate bookingToDate = DefaultDate.CreateDefaultDate().withDay("5").withMonth("September");
+        date.clickOnTheDay(bookingToDate);
+        date.clickButtonDone();
+        booking.clickArrowToIncreaseNumberOfAdults(3);
         book.clickButtonBookAFlightTo();
+
     }
     @Parameters({ "airport" })
     @Test
     public void enterDestination (String airport){
         destination.searchForAirports(airport);
         destination.selectAirportAfterSearch();
-        booking.clickButtonSearchFlights(); }
+        book.clickButtonSearchFlights();
+
+        FlightResultsPage results = new FlightResultsPage();
+        results.assertEquals(results.getOriginAndDestinationText(),"Dublin to London/Heathrow");
+    }
 
     //---
     @AfterClass
