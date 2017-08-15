@@ -2,8 +2,15 @@ package pageobject;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
+import webdriver.DriverManager;
 
 public class BookAFlightPage extends AbstractPage {
+
+    public void initialisePageObject(Object page) {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), page);
+    }
 
     @AndroidFindBy(xpath = "//android.widget.RadioButton[@text = 'ONE WAY']")
     private MobileElement tabOneWay;
@@ -34,9 +41,9 @@ public class BookAFlightPage extends AbstractPage {
 
     public void clickTabOneWay() {
         waitElement(tabOneWay);
-        System.out.println("Click on the button 'Flight From'");
+        System.out.println("Click on the button 'One Way'");
         tapElement(tabOneWay);
-        System.out.println("Button 'Flight From' has been clicked");
+        System.out.println("Button 'One Way' has been clicked");
 
     }
 

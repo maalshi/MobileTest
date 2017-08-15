@@ -8,42 +8,36 @@ import webdriver.DriverManager;
 
 public class MainPage extends AbstractPage  {
 
-        public MainPage() {
-            PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), this);
-        }
 
-        @AndroidFindBy(xpath = "//android.widget.Button[@text='Book a Flight']")
-        private MobileElement buttonBookAFlight;
 
-        @AndroidFindBy(xpath = "//android.widget.Button[@text='Flight Status']")
-        private MobileElement buttonFlightStatus;
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='Book a Flight']")
+    private MobileElement buttonBookAFlight;
 
-        @AndroidFindBy(xpath = "//android.widget.Button[@text='Check In']")
-        private MobileElement buttonCheckIn;
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='Flight Status']")
+    private MobileElement buttonFlightStatus;
 
-        @AndroidFindBy(xpath = "//android.widget.Button[@text='Sign In']")
-        private MobileElement buttonSignIn;
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='Check In']")
+    private MobileElement buttonCheckIn;
 
-        @AndroidFindBy(xpath = "//android.widget.Button[@text='My Trips']")
-        private MobileElement buttonMyTrips;
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='Sign In']")
+    private MobileElement buttonSignIn;
 
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/up']")
-        private MobileElement buttonMenu;
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='My Trips']")
+    private MobileElement buttonMyTrips;
 
-        public void clickButtonBookAFlight() {
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/up']")
+    private MobileElement buttonMenu;
 
-            waitElement(buttonBookAFlight);
+    public void initialisePageObject(Object page) {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), page);
+    }
 
-            System.out.println("Click on the button 'Book a Flight'");
+    public void clickButtonBookAFlight() {
 
-            try {
-                buttonBookAFlight.click();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        waitElement(buttonBookAFlight);
 
-            System.out.println("Button 'Book a Flight' has been clicked");
-
-        }
-
+        System.out.println("Click on the button 'Book a Flight'");
+        tapElement(buttonBookAFlight);
+        System.out.println("Button 'Book a Flight' has been clicked");
+    }
 }

@@ -11,39 +11,36 @@ import pageobject.SelectDatePage;
 import webdriver.DriverManager;
 
 public class FlightTest {
+    DestinationPage destination = new DestinationPage();
+    BookAFlightPage booking = new BookAFlightPage();
 
     @BeforeClass
-    public void beforeMethod(){
+    public void beforeTest() {
+
         try {
-            DriverManager.createAndroidDriver();
+            DriverManager.createWedDriverForDevice();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    DestinationPage destination = new DestinationPage();
-    @Parameters({ "airport" })
     @Test
-    public void newTestDemo(String airport) {
+    public void newTestDemo() {
         MainPage mainpage = new MainPage();
         mainpage.clickButtonBookAFlight();
 
-        BookAFlightPage booking = new BookAFlightPage();
-        booking.clickButtonSelectDepartingDate();
-        BookingDate bookingFromDate = DefaultDate.CreateDefaultDate().withDay("25").withMonth("August");
-        System.out.println(bookingFromDate.toString());
-        SelectDatePage date = new SelectDatePage();
-        date.clickOnTheDay(bookingFromDate);
-        BookingDate bookingToDate = DefaultDate.CreateDefaultDate().withDay("5").withMonth("September");
-        date.clickOnTheDay(bookingToDate);
-        date.clickButtonDone();
-        booking.clickArrowToIncreaseNumberOfAdults(3);
-        booking.clickButtonBookAFlightTo();
+        BookAFlightPage book = new BookAFlightPage();
+        book.clickTabOneWay();
+        book.clickButtonBookAFlightTo();
+    }
+    @Parameters({ "airport" })
+    @Test
+    public void enterDestination (String airport){
         destination.searchForAirports(airport);
         destination.selectAirportAfterSearch();
-        booking.clickButtonSearchFlights();
-    }
-//---
+        booking.clickButtonSearchFlights(); }
+
+    //---
     @AfterClass
     public void afterTest() {
 
@@ -52,6 +49,7 @@ public class FlightTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+
 }

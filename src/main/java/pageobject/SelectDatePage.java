@@ -12,6 +12,10 @@ import webdriver.DriverManager;
 
 public class SelectDatePage extends AbstractPage  {
 
+    public void initialisePageObject(Object page) {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), page);
+    }
+
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Done']")
     private MobileElement buttonDone;
 

@@ -3,8 +3,15 @@ package pageobject;
 import businessobject.Destination;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.support.PageFactory;
+import webdriver.DriverManager;
 
 public class DestinationPage extends AbstractPage {
+
+    public void initialisePageObject(Object page) {
+        PageFactory.initElements(new AppiumFieldDecorator(DriverManager.getDriver()), page);
+    }
 
     @AndroidFindBy(id = "com.aerlingus.mobile:id/searchTextView")
     private MobileElement searchForAirports;

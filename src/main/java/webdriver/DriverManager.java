@@ -1,42 +1,72 @@
 package webdriver;
 
+
+import org.openqa.selenium.remote.SessionNotFoundException;
+
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
-import static io.appium.java_client.remote.MobileCapabilityType.*;
+import io.appium.java_client.MobileElement;
+import webdriver.TestProperties;
 
 public class DriverManager {
 
-    private DriverManager (){}
+    // private final static Logger logger =
+    // Logger.getLogger(WebDriverFactoryManager.class);
 
-    private static final String URI_SCHEME = "http://";
-    private static final String WD_SERVER_ROOT = "/wd/hub";
-    private static final ThreadLocal<AppiumDriver> driverPool = new ThreadLocal<AppiumDriver>();
+    private static String platformName = TestProperties.getInstance().getPlatformName();
+    private static boolean saucelabsEmulator = TestProperties.getInstance().getSaucelabsEmulator();
+    private static WebDriverFactory result;
+    static AppiumDriver<MobileElement> driver;
 
-    public static void createAndroidDriver() throws Exception{
-        DesiredCapabilities caps = new DesiredCapabilities();
+    public String getDefaultPlatformName() {
+        return platformName;
+    }
 
-        caps.setCapability(NEW_COMMAND_TIMEOUT, "1200");
-        caps.setCapability(DEVICE_READY_TIMEOUT, "120");
-        caps.setCapability(LAUNCH_TIMEOUT, "120000");
+    public boolean getSaucelabsEmulator() {
+        return saucelabsEmulator;
+    }
 
-        caps.setCapability(PLATFORM_NAME, "Android");
-        caps.setCapability(DEVICE_NAME, "android_phone");
+    public DriverManager() {
+    }
 
-        AppiumDriver driver = new AndroidDriver(new URL(URI_SCHEME + "127.0.0.1:4273" + WD_SERVER_ROOT), caps);
+    public static AppiumDriver<MobileElement> createWedDriverForDevice() throws Exception {
+        // logger.info("Creating WebDriver instance by Type: '" + browserType +
+        // "'");
 
-        driverPool.set(driver);
-        driverPool.get().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        System.out.println(platformName);
+        System.out.println(saucelabsEmulator);
+
+        if ((platformName.equals("Android")) & (saucelabsEmulator == false)) {
+            System.out.println("in if Android desctop");
+            result = new AndroidDriverFactoryDesctop();
+        } else if ((platformName == "Android") & (saucelabsEmulator == true)) {
+            System.out.println("in if Android saucelabs");
+            result = new AndroidDriverFactorySaucelabs();
+        } else {
+            // throw new ItemNotFoundException("There is no WebDriverFactory
+            // implementation for '"
+            // + browserType.name() + "'");
+        }
+        System.out.println("result is " + result);
+        System.out.println("after if");
+        driver = result.createWebDriver();
+        return driver;
 
     }
 
-    public static AppiumDriver getDriver() {return driverPool.get();}
-//---
+    public static AppiumDriver<MobileElement> getDriver() {
+        return driver;
+    }
+
     public static void closeDriver() {
-        getDriver().closeApp();
+        AppiumDriver<MobileElement> runDriver = driver;
+        try {
+            if (runDriver != null)
+                System.out.println("befor close driver1" + runDriver);
+            runDriver.quit();
+            System.out.println("after close driver1");
+        } catch (SessionNotFoundException e) {
+        }
+
     }
+
 }
