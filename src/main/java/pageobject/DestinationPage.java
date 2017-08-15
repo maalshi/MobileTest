@@ -19,6 +19,15 @@ public class DestinationPage extends AbstractPage {
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout//android.widget.ListView/android.widget.LinearLayout[2]")
     private MobileElement foundAirport;
 
+    @AndroidFindBy(id = "com.aerlingus.mobile:id/going_flight_item_destination_code_text_view")
+    private MobileElement flightResultsDestAirport;
+
+    @AndroidFindBy(id = "com.aerlingus.mobile:id/going_flight_item_origin_code_text_view")
+    private MobileElement flightResultsOrigAirport;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text = 'Dublin to London/Heathrow']")
+    private MobileElement OrigAndDestin;
+
     public void searchForAirports(String airport) {
 
         waitElement(searchForAirports);
