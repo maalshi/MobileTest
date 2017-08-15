@@ -8,8 +8,8 @@ import pageobject.*;
 import webdriver.DriverManager;
 
 public class FlightTest {
-    DestinationPage destination = new DestinationPage();
-    BookAFlightPage book = new BookAFlightPage();
+
+
 
     @BeforeClass
     public void beforeTest() {
@@ -21,6 +21,7 @@ public class FlightTest {
         }
     }
 
+    @Parameters({ "airport" })
     @Test
     public void newTestDemo() {
         MainPage mainPage = new MainPage();
@@ -35,15 +36,11 @@ public class FlightTest {
         date.clickOnTheDay(bookingToDate);
         date.clickButtonDone();
         booking.clickArrowToIncreaseNumberOfAdults(3);
-        book.clickButtonBookAFlightTo();
-
-    }
-    @Parameters({ "airport" })
-    @Test
-    public void enterDestination (String airport){
-        destination.searchForAirports(airport);
+        booking.clickButtonBookAFlightTo();
+        DestinationPage destination = new DestinationPage();
+        destination.searchForAirports("lhr");
         destination.selectAirportAfterSearch();
-        book.clickButtonSearchFlights();
+        booking.clickButtonSearchFlights();
 
         FlightResultsPage results = new FlightResultsPage();
         results.assertEquals(results.getOriginAndDestinationText(),"Dublin to London/Heathrow");

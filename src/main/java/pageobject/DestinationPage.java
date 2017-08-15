@@ -37,7 +37,7 @@ public class DestinationPage extends AbstractPage {
         waitElement(searchForAirports);
         System.out.println("Click on the searchForAirports");
         try {
-            searchForAirports.sendKeys(Destination.getDestination());
+            searchForAirports.sendKeys(airport);
         } catch (Exception e) {
             e.printStackTrace();
         }
