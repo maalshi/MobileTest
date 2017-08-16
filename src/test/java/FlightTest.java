@@ -23,7 +23,7 @@ public class FlightTest {
 
     @Parameters({ "airport" })
     @Test
-    public void newTestDemo() {
+    public void newTestDemo(String airport) {
         MainPage mainPage = new MainPage();
         mainPage.clickButtonBookAFlight();
         BookAFlightPage booking = new BookAFlightPage();
@@ -38,7 +38,7 @@ public class FlightTest {
         booking.clickArrowToIncreaseNumberOfAdults(3);
         booking.clickButtonBookAFlightTo();
         DestinationPage destination = new DestinationPage();
-        destination.searchForAirports("lhr");
+        destination.searchForAirports(airport);
         destination.selectAirportAfterSearch();
         booking.clickButtonSearchFlights();
 
